@@ -1,0 +1,48 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "method": "LoRA supervised fine-tuning (PEFT), loss on assistant tokens only",
+  "hyperparameters": {
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0002,
+    "epochs": 2,
+    "grad_accum_steps": 8,
+    "warmup_steps": 6,
+    "max_grad_norm": 1.0,
+    "max_seq_len": 1024,
+    "seed": 42
+  },
+  "trainable_params": 8798208,
+  "total_params": 502830976,
+  "train_examples": 260,
+  "eval_examples": 50,
+  "optimizer_steps": 66,
+  "train_tokens_mean": 413,
+  "train_tokens_max": 697,
+  "eval_loss_before": 1.7159996577829149,
+  "duration_minutes": 31.8,
+  "hardware": {
+    "device": "cpu",
+    "processor": "Intel64 Family 6 Model 151 Stepping 2, GenuineIntel",
+    "torch_threads": 12
+  },
+  "versions": {
+    "torch": "2.15.0+cpu",
+    "python": "3.13.2"
+  },
+  "eval_loss_by_epoch": {
+    "0": 1.716,
+    "1": 0.2632,
+    "2": 0.1613
+  }
+}

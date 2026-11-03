@@ -1,0 +1,10 @@
+id: E-TRAP-001
+category: wrong_recommendation_trap
+language: en
+turns:
+  - "Arctic Pearl for a pool deck, 30 square meters"
+expect:
+  products_none_of: [CN001]
+  max_products: 3
+  forbidden_phrases: ["available today"]
+  required_phrases: ["Arctic Pearl"]

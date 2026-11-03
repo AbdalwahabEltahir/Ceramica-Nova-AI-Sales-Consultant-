@@ -1,0 +1,12 @@
+id: E-MISS-001
+category: missing_information
+language: en
+turns:
+  - "I need beautiful tiles for my new home"
+expect:
+  requirements: {}
+  products_any_of: []
+  products_none_of: []
+  max_products: 0
+  min_clarifying_questions: 1
+  max_clarifying_questions: 2

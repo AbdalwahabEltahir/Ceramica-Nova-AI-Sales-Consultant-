@@ -1,0 +1,7 @@
+# Model adaptation only (E.11/E.12) - the web app does not need these.
+# CPU wheel: pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch==2.15.0
+transformers==5.22.1
+peft==0.21.2
+accelerate
+safetensors

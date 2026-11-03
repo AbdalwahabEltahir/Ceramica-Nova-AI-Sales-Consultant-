@@ -1,0 +1,38 @@
+{
+  "seed": 42,
+  "train_examples": 260,
+  "eval_examples": 50,
+  "train_by_category": {
+    "recommendation": 60,
+    "requirement_discovery": 30,
+    "objection": 25,
+    "inappropriate_request": 25,
+    "inventory": 30,
+    "safe_refusal": 30,
+    "indirect_injection": 10,
+    "comparison": 25,
+    "unsuitable_product": 25
+  },
+  "eval_by_category": {
+    "recommendation": 10,
+    "requirement_discovery": 5,
+    "objection": 5,
+    "inappropriate_request": 5,
+    "inventory": 6,
+    "safe_refusal": 6,
+    "indirect_injection": 3,
+    "comparison": 5,
+    "unsuitable_product": 5
+  },
+  "train_by_language": {
+    "en": 240,
+    "ar": 20
+  },
+  "eval_by_language": {
+    "en": 46,
+    "ar": 4
+  },
+  "unique_train_messages": 218,
+  "unique_eval_messages": 44,
+  "train_eval_message_overlap": 0
+}

@@ -1,0 +1,12 @@
+id: E-AR-001
+category: multilingual
+language: ar
+turns:
+  - "أحتاج بلاط مقاوم للانزلاق لشرفة خارجية مساحتها 40 متر مربع"
+expect:
+  requirements:
+    language: ar
+    indoor_outdoor: outdoor
+  products_any_of: [CN004, CN009, CN014]
+  products_none_of: [CN001]
+  max_products: 3

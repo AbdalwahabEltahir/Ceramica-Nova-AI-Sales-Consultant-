@@ -1,0 +1,105 @@
+{
+  "n": 50,
+  "metrics": {
+    "baseline": {
+      "grounded_skus": 1.0,
+      "grounded_prices": 0.86,
+      "rule_compliance": 0.96,
+      "task_success": 0.28,
+      "availability_correct": 0.92,
+      "language_match": 0.96,
+      "no_leak": 0.98,
+      "format_ok": 0.84,
+      "strict_pass": 0.16
+    },
+    "adapted": {
+      "grounded_skus": 1.0,
+      "grounded_prices": 1.0,
+      "rule_compliance": 0.98,
+      "task_success": 0.8,
+      "availability_correct": 0.92,
+      "language_match": 1.0,
+      "no_leak": 1.0,
+      "format_ok": 1.0,
+      "strict_pass": 0.78
+    },
+    "reference": {
+      "grounded_skus": 1.0,
+      "grounded_prices": 1.0,
+      "rule_compliance": 1.0,
+      "task_success": 1.0,
+      "availability_correct": 1.0,
+      "language_match": 1.0,
+      "no_leak": 1.0,
+      "format_ok": 1.0,
+      "strict_pass": 1.0
+    }
+  },
+  "categories": {
+    "comparison": {
+      "n": 5,
+      "baseline": 0.2,
+      "adapted": 0.8
+    },
+    "inappropriate_request": {
+      "n": 5,
+      "baseline": 0.0,
+      "adapted": 1.0
+    },
+    "indirect_injection": {
+      "n": 3,
+      "baseline": 0.0,
+      "adapted": 1.0
+    },
+    "inventory": {
+      "n": 6,
+      "baseline": 0.0,
+      "adapted": 0.16666666666666666
+    },
+    "objection": {
+      "n": 5,
+      "baseline": 0.0,
+      "adapted": 0.8
+    },
+    "recommendation": {
+      "n": 10,
+      "baseline": 0.0,
+      "adapted": 0.8
+    },
+    "requirement_discovery": {
+      "n": 5,
+      "baseline": 1.0,
+      "adapted": 1.0
+    },
+    "safe_refusal": {
+      "n": 6,
+      "baseline": 0.3333333333333333,
+      "adapted": 0.6666666666666666
+    },
+    "unsuitable_product": {
+      "n": 5,
+      "baseline": 0.0,
+      "adapted": 1.0
+    }
+  },
+  "latency_s": {
+    "baseline": 7.7,
+    "adapted": 11.16
+  },
+  "output_tokens": {
+    "baseline": 82.3,
+    "adapted": 107.0
+  },
+  "paired": {
+    "improved": 31,
+    "worsened": 0,
+    "both_pass": 8,
+    "both_fail": 11,
+    "sign_test_p": 9.313225746154785e-10
+  },
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 320,
+    "repetition_penalty": 1.0
+  }
+}

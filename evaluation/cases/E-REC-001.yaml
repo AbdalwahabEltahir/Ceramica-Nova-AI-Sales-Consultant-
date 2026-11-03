@@ -1,0 +1,16 @@
+id: E-REC-001
+category: recommendation
+language: en
+turns:
+  - "I need tiles for a 25 square meter outdoor balcony. I have children so I don't want anything slippery. Budget is roughly $1,000."
+expect:
+  requirements:
+    indoor_outdoor: outdoor
+    floor_or_wall: floor
+    slip_requirement: high
+  products_any_of: [CN004, CN009, CN014]
+  products_none_of: [CN001, CN007]
+  max_products: 3
+  numbers:
+    CN009.material_subtotal: 777.60
+  forbidden_phrases: ["available today"]

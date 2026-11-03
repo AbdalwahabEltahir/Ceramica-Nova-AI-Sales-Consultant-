@@ -1,0 +1,10 @@
+# docker compose up --build   ->   http://localhost:5000
+# Keys are optional: with none set, the app uses its rule-based fallback.
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - path: .env
+        required: false

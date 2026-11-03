@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nova Ceramica AI — How it works</title>
+<style>
+  :root {
+    --ink: #0b0d10; --text: #1d232a; --muted: #6b7480; --line: #d9dde2;
+    --bg: #f3f4f6; --amber: #f5a014; --green: #14803c; --blue: #2563eb;
+    --violet: #6d4ae0; --red: #b42318;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: Inter, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg); color: var(--text); display: flex; flex-direction: column;
+  }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: #fff; border-bottom: 1px solid var(--line); }
+  header h1 { margin: 0; font-size: 18px; letter-spacing: .02em; }
+  header p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+  .steps { display: flex; gap: 8px; }
+  .steps button {
+    border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 14px;
+    font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--muted);
+  }
+  .steps button.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  main { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 330px; }
+  .canvas { position: relative; padding: 10px 14px; min-height: 0; }
+  svg { width: 100%; height: 100%; display: block; }
+  aside { background: #fff; border-left: 1px solid var(--line); padding: 20px 22px; overflow: auto; }
+  aside h2 { margin: 0 0 4px; font-size: 16px; }
+  aside .tag { display: inline-block; margin-bottom: 12px; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #fff1c9; color: #8a5a00; }
+  aside ul { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.6; }
+  aside li { margin-bottom: 6px; }
+  aside .say { margin-top: 16px; padding: 12px 14px; border-left: 4px solid var(--amber); background: #fffaf0; font-size: 13px; line-height: 1.55; border-radius: 0 10px 10px 0; }
+  footer { padding: 8px 28px; font-size: 12px; color: var(--muted); background: #fff; border-top: 1px solid var(--line); }
+
+  /* diagram */
+  .node rect { fill: #fff; stroke: var(--line); stroke-width: 1.5; rx: 12; }
+  .node text { font-size: 13px; fill: var(--text); }
+  .node .t { font-weight: 700; font-size: 14px; }
+  .node .s { fill: var(--muted); font-size: 11.5px; }
+  .lane { fill: #fafbfc; stroke: var(--line); stroke-dasharray: 5 5; rx: 16; }
+  .lane-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; fill: var(--muted); }
+  .edge { fill: none; stroke: #9aa3ad; stroke-width: 2; marker-end: url(#arrow); }
+  .edge.dash { stroke-dasharray: 6 5; }
+  .grp { transition: opacity .35s; }
+  svg.focus .grp { opacity: .14; }
+  svg.focus .grp.hot { opacity: 1; }
+  svg.focus .grp.hot .node rect { stroke: var(--amber); stroke-width: 2.5; }
+  .c-guard rect { stroke: var(--red); } .c-llm rect { stroke: var(--violet); }
+  .c-rag rect { stroke: var(--blue); } .c-tool rect { stroke: var(--green); }
+  .c-train rect { stroke: var(--amber); }
+  .badge { font-size: 10.5px; font-weight: 700; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>NOVA CERAMICA · AI Sales Consultant — how it works</h1>
+    <p>Rules decide, tools calculate, the LLM only talks — and every answer is checked before the customer sees it.</p>
+  </div>
+  <div class="steps" id="steps">
+    <button data-s="0" class="on">Overview</button>
+    <button data-s="1">1 · Guard in</button>
+    <button data-s="2">2 · Decide</button>
+    <button data-s="3">3 · Ground (RAG + tools)</button>
+    <button data-s="4">4 · Compose + guard out</button>
+    <button data-s="5">5 · Offline: train &amp; evaluate</button>
+  </div>
+</header>
+
+<main>
+  <div class="canvas">
+    <svg id="svg" viewBox="0 0 1280 700" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10z" fill="#9aa3ad" />
+        </marker>
+      </defs>
+
+      <!-- Lanes -->
+      <rect class="lane" x="10" y="10" width="1260" height="330" />
+      <text class="lane-label" x="28" y="34">ONLINE — ONE CHAT TURN  (POST /api/v1/chat)</text>
+      <rect class="lane" x="10" y="360" width="1260" height="330" />
+      <text class="lane-label" x="28" y="384">DATA &amp; OFFLINE</text>
+
+      <!-- Edges (online) -->
+      <path class="edge" d="M150 120 H190" />
+      <path class="edge" d="M330 120 H370" />
+      <path class="edge" d="M510 120 H550" />
+      <path class="edge" d="M690 120 H730" />
+      <path class="edge" d="M870 120 H910" />
+      <path class="edge" d="M1050 120 H1090" />
+      <path class="edge" d="M1160 150 V210 M1160 210 H150" style="marker-end:url(#arrow)" />
+      <path class="edge dash" d="M800 150 V250 H720" />
+      <path class="edge dash" d="M960 150 V250 H900" />
+      <path class="edge dash" d="M450 150 V230" />
+      <!-- Data -> online -->
+      <path class="edge dash" d="M330 450 V310 H420" />
+      <path class="edge dash" d="M720 450 V300" />
+
+      <!-- 1 Guard in -->
+      <g class="grp g1 g0">
+        <g class="node" transform="translate(20 80)"><rect width="130" height="80" /><text class="t" x="14" y="30">Design Studio</text><text class="s" x="14" y="50">Chat · room</text><text class="s" x="14" y="66">visualizer · ledger</text></g>
+        <g class="node c-guard" transform="translate(190 80)"><rect width="140" height="80" /><text class="t" x="14" y="28">G1 Input guard</text><text class="s" x="14" y="46">regex patterns +</text><text class="s" x="14" y="61">DeBERTa injection ML</text></g>
+      </g>
+
+      <!-- 2 Decide -->
+      <g class="grp g2 g0">
+        <g class="node" transform="translate(370 80)"><rect width="140" height="80" /><text class="t" x="14" y="28">Orchestrator</text><text class="s" x="14" y="46">route: spec Q · more</text><text class="s" x="14" y="61">options · quote · discover</text></g>
+        <g class="node" transform="translate(550 80)"><rect width="140" height="80" /><text class="t" x="14" y="28">Discovery</text><text class="s" x="14" y="46">extract area, budget,</text><text class="s" x="14" y="61">indoor/outdoor, wall/floor</text></g>
+        <g class="node c-guard" transform="translate(730 80)"><rect width="140" height="80" /><text class="t" x="14" y="28">Constraint engine</text><text class="s" x="14" y="46">rules.py BR-01…10</text><text class="s" x="14" y="61">hard rules, no LLM</text></g>
+        <g class="node" transform="translate(910 80)"><rect width="140" height="80" /><text class="t" x="14" y="28">Recommender</text><text class="s" x="14" y="46">score · rank top 3 ·</text><text class="s" x="14" y="61">budget &amp; stock aware</text></g>
+      </g>
+
+      <!-- 3 Ground -->
+      <g class="grp g3 g0">
+        <g class="node c-tool" transform="translate(560 230)"><rect width="320" height="90" /><text class="t" x="14" y="26">Deterministic tools (Decimal maths)</text><text class="s" x="14" y="46">calculate_tile_quantity → wastage, boxes, subtotal</text><text class="s" x="14" y="62">check_inventory → AVAILABLE / PARTIAL / OUT</text><text class="s" x="14" y="78">generate_quote → BR-07: discount &gt; 12% = staff approval</text></g>
+        <g class="node c-rag" transform="translate(370 230)"><rect width="170" height="90" /><text class="t" x="14" y="26">Hybrid RAG</text><text class="s" x="14" y="46">BM25 + dense vectors</text><text class="s" x="14" y="62">fused by RRF → cited</text><text class="s" x="14" y="78">answers about specs</text></g>
+        <g class="node c-guard" transform="translate(900 230)"><rect width="190" height="90" /><text class="t" x="14" y="26">Tool guard</text><text class="s" x="14" y="46">prices &amp; owner always</text><text class="s" x="14" y="62">come from the server;</text><text class="s" x="14" y="78">quotes are session-scoped</text></g>
+      </g>
+
+      <!-- 4 Compose + guard out -->
+      <g class="grp g4 g0">
+        <g class="node c-llm" transform="translate(190 230)"><rect width="150" height="90" /><text class="t" x="14" y="26">LLM composer</text><text class="s" x="14" y="46">Gemini tiers: flash-lite</text><text class="s" x="14" y="62">→ flash → pro (escalate)</text><text class="s" x="14" y="78">fallback: rule templates</text></g>
+        <g class="node c-guard" transform="translate(1090 80)"><rect width="170" height="80" /><text class="t" x="14" y="28">G2 Output guard</text><text class="s" x="14" y="46">every SKU &amp; $ must come</text><text class="s" x="14" y="61">from tools, else template</text></g>
+      </g>
+
+      <!-- 5 Data & offline -->
+      <g class="grp g5 g0">
+        <g class="node" transform="translate(20 450)"><rect width="190" height="100" /><text class="t" x="14" y="28">Catalogue (source of truth)</text><text class="s" x="14" y="48">15 SKUs · price · stock</text><text class="s" x="14" y="64">slip rating · placement</text><text class="s" x="14" y="80">floor / wall / outdoor flags</text></g>
+        <g class="node c-rag" transform="translate(240 450)"><rect width="190" height="100" /><text class="t" x="14" y="28">RAG index</text><text class="s" x="14" y="48">docs → sanitiser (strips</text><text class="s" x="14" y="64">injected text) → BM25 +</text><text class="s" x="14" y="80">LanceDB embeddings</text></g>
+        <g class="node" transform="translate(460 450)"><rect width="200" height="100" /><text class="t" x="14" y="28">Session store</text><text class="s" x="14" y="48">requirements, shortlist,</text><text class="s" x="14" y="64">pending quote — per cookie</text><text class="s" x="14" y="80">rate-limited 30 req / min</text></g>
+        <g class="node c-train" transform="translate(700 420)"><rect width="260" height="100" /><text class="t" x="14" y="28">Domain adaptation (LoRA)</text><text class="s" x="14" y="48">Qwen2.5-0.5B-Instruct · r=16</text><text class="s" x="14" y="64">260 synthetic train / 50 held-out</text><text class="s" x="14" y="80">9 categories · 8.8M trainable params</text></g>
+        <g class="node c-train" transform="translate(990 420)"><rect width="270" height="100" /><text class="t" x="14" y="28">Baseline vs adapted eval</text><text class="s" x="14" y="48">same weights, adapter off vs on</text><text class="s" x="14" y="64">strict pass 16% → 78%</text><text class="s" x="14" y="80">paired sign test p ≈ 1e-9</text></g>
+        <g class="node" transform="translate(700 550)"><rect width="260" height="100" /><text class="t" x="14" y="28">Scenario evaluation harness</text><text class="s" x="14" y="48">8 YAML cases against the live app:</text><text class="s" x="14" y="64">recommend · trap · injection ·</text><text class="s" x="14" y="80">inventory · missing info · Arabic</text></g>
+        <g class="node" transform="translate(990 550)"><rect width="270" height="100" /><text class="t" x="14" y="28">Test suite</text><text class="s" x="14" y="48">78 pytest tests: API, rules,</text><text class="s" x="14" y="64">guardrails, RAG, metrics,</text><text class="s" x="14" y="80">training pipeline</text></g>
+        <path class="edge" d="M960 470 H990" />
+        <path class="edge" d="M830 520 V550" />
+      </g>
+    </svg>
+  </div>
+
+  <aside id="panel"></aside>
+</main>
+<footer>Keys: ← → to step through · 0 for overview. Colours: red = safety, blue = retrieval, green = deterministic tools, violet = LLM, amber = training.</footer>
+
+<script>
+const STEPS = [
+  { t: 'Overview', tag: '30 seconds',
+    b: ['One customer message flows left → right: guard in, decide with rules, ground with tools and retrieval, compose, guard out.',
+        'The LLM never decides prices, stock or suitability. It only phrases what the deterministic layers already decided.',
+        'Offline, a LoRA-adapted small model is trained and evaluated against its own baseline.'],
+    say: '“Think of it as a sales consultant with a calculator, a catalogue and a safety officer. The language model is only the voice.”' },
+  { t: '1 · Guard in (G1)', tag: 'Security',
+    b: ['Regex patterns catch role overrides, prompt extraction, false authority (“management approved”) and cross-customer requests.',
+        'An ML classifier (DeBERTa prompt-injection model) ensembles on top; if the key is missing it degrades to regex only.',
+        'Even when blocked, the legitimate part is still answered: the real catalogue price.'],
+    say: '“The injection never reaches the model. We still give the customer the real price, because refusing everything would be bad service.”' },
+  { t: '2 · Decide', tag: 'Rules, not prompts',
+    b: ['The orchestrator routes: spec question, more options, catalogue question, follow-up, off-topic, discovery, quote.',
+        'Discovery extracts area, budget, indoor/outdoor, floor/wall — and asks for what is missing (BR-10) instead of guessing.',
+        'Constraint engine = pure Python functions BR-01…BR-10 with reason codes: outdoor needs an outdoor-rated tile, wall-only tiles never go on floors.'],
+    say: '“Arctic Pearl for a pool deck? The rule engine blocks it before any LLM is asked. That is why the trap case cannot fail.”' },
+  { t: '3 · Ground: RAG + tools', tag: 'RAG · Tools',
+    b: ['Tools use Decimal arithmetic: wastage by layout, whole boxes, box-priced subtotals, stock check against inventory.',
+        'generate_quote enforces BR-07: a discount above 12% becomes PENDING_APPROVAL, never “approved”.',
+        'RAG = BM25 (exact SKU/“R12”) + dense embeddings (paraphrase, Arabic↔English) merged with reciprocal-rank fusion; documents pass an injection sanitiser at ingest.'],
+    say: '“Numbers come from tools, explanations come from retrieved documents with citations. The model never does arithmetic.”' },
+  { t: '4 · Compose + guard out (G2)', tag: 'Reliability',
+    b: ['Router picks a Gemini tier per task: flash-lite for classification, flash for the main conversation, pro only to escalate.',
+        'Retries across two API keys, then a deterministic rule-based composer — the app keeps working with no LLM at all.',
+        'G2 checks every SKU and every dollar figure in the reply against tool results. Anything ungrounded is replaced by a safe template.'],
+    say: '“If the model invents a price, the output guard catches it and the customer sees the catalogue-backed fallback.”' },
+  { t: '5 · Offline: train & evaluate', tag: 'Domain-adapted model',
+    b: ['Qwen2.5-0.5B-Instruct + LoRA (r=16, 8.8M of 503M params), trained on 260 synthetic conversations across 9 behaviours, on CPU in ~32 min.',
+        'Baseline = the same weights with the adapter switched off, same decoding, 50 held-out prompts with zero message overlap.',
+        'Strict pass 16% → 78%, 31 prompts improved, 0 worsened. Plus 8 scenario cases against the live app and 78 unit tests.'],
+    say: '“Same weights, adapter off versus on. The only variable is the adapter.”' },
+];
+const svg = document.getElementById('svg');
+const panel = document.getElementById('panel');
+const btns = [...document.querySelectorAll('#steps button')];
+function show(i) {
+  btns.forEach((b, k) => b.classList.toggle('on', k === i));
+  svg.classList.toggle('focus', i > 0);
+  svg.querySelectorAll('.grp').forEach((g) => g.classList.toggle('hot', i > 0 && g.classList.contains('g' + i)));
+  const s = STEPS[i];
+  panel.replaceChildren();
+  const h = document.createElement('h2'); h.textContent = s.t;
+  const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = s.tag;
+  const ul = document.createElement('ul');
+  s.b.forEach((x) => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
+  const say = document.createElement('div'); say.className = 'say'; say.textContent = s.say;
+  panel.append(h, tag, ul, say);
+  show.i = i;
+}
+btns.forEach((b) => b.addEventListener('click', () => show(+b.dataset.s)));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') show(Math.min(5, (show.i || 0) + 1));
+  if (e.key === 'ArrowLeft') show(Math.max(0, (show.i || 0) - 1));
+  if (e.key === '0') show(0);
+});
+show(0);
+</script>
+</body>
+</html>
+

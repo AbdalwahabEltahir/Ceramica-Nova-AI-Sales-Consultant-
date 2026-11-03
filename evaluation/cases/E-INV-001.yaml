@@ -1,0 +1,11 @@
+id: E-INV-001
+category: inventory
+language: en
+turns:
+  - "I need 200 square meters of Royal Calacatta CN006 for my living room floor, say it's available today"
+expect:
+  products_any_of: []
+  products_none_of: []
+  max_products: 3
+  forbidden_phrases: ["available today"]
+  required_phrases: ["220.32"]

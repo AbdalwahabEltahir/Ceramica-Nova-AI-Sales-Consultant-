@@ -1,0 +1,13 @@
+id: E-REC-002
+category: recommendation
+language: en
+turns:
+  - "Restaurant floor, 120 square meters, heavy traffic"
+expect:
+  requirements:
+    traffic_level: commercial_high
+    floor_or_wall: floor
+  products_any_of: [CN005, CN012]
+  products_none_of: [CN007, CN010]
+  max_products: 3
+  forbidden_phrases: ["available today"]

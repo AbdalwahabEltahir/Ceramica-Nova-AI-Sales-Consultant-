@@ -1,0 +1,121 @@
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:  17%|█▋        | 49/290 [00:00<00:00, 462.25it/s]Loading weights:  33%|███▎      | 96/290 [00:00<00:00, 416.32it/s]Loading weights:  49%|████▉     | 143/290 [00:00<00:00, 420.38it/s]Loading weights:  64%|██████▍   | 186/290 [00:00<00:00, 402.46it/s]Loading weights:  78%|███████▊  | 227/290 [00:00<00:00, 380.75it/s]Loading weights:  95%|█████████▍| 275/290 [00:00<00:00, 395.45it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 413.18it/s]
+trainable params: 8,798,208 / 502,830,976 (1.75%)
+train sequences: 260 | tokens min/mean/max: 182/413/697
+eval loss before training: 1.7160
+step 1/66 epoch 1 loss 2.1205 lr 3.33e-05 elapsed 168.4s
+step 2/66 epoch 1 loss 1.7065 lr 6.67e-05 elapsed 195.4s
+step 3/66 epoch 1 loss 2.0790 lr 1.00e-04 elapsed 217.7s
+step 4/66 epoch 1 loss 1.6881 lr 1.33e-04 elapsed 238.6s
+step 5/66 epoch 1 loss 1.3441 lr 1.67e-04 elapsed 268.8s
+step 6/66 epoch 1 loss 1.7486 lr 2.00e-04 elapsed 292.6s
+step 7/66 epoch 1 loss 1.1430 lr 2.00e-04 elapsed 319.6s
+step 8/66 epoch 1 loss 1.2850 lr 1.97e-04 elapsed 342.4s
+step 9/66 epoch 1 loss 0.9183 lr 1.93e-04 elapsed 369.8s
+step 10/66 epoch 1 loss 1.1300 lr 1.90e-04 elapsed 400.0s
+step 11/66 epoch 1 loss 0.8211 lr 1.87e-04 elapsed 420.9s
+step 12/66 epoch 1 loss 0.5908 lr 1.83e-04 elapsed 445.9s
+step 13/66 epoch 1 loss 1.0338 lr 1.80e-04 elapsed 472.7s
+step 14/66 epoch 1 loss 0.4632 lr 1.77e-04 elapsed 494.5s
+step 15/66 epoch 1 loss 1.1646 lr 1.73e-04 elapsed 513.5s
+step 16/66 epoch 1 loss 0.6238 lr 1.70e-04 elapsed 541.3s
+step 17/66 epoch 1 loss 0.7360 lr 1.67e-04 elapsed 562.3s
+step 18/66 epoch 1 loss 0.6199 lr 1.63e-04 elapsed 587.4s
+step 19/66 epoch 1 loss 0.6871 lr 1.60e-04 elapsed 617.6s
+step 20/66 epoch 1 loss 0.4141 lr 1.57e-04 elapsed 638.9s
+step 21/66 epoch 1 loss 0.5458 lr 1.53e-04 elapsed 660.8s
+step 22/66 epoch 1 loss 0.5851 lr 1.50e-04 elapsed 690.5s
+step 23/66 epoch 1 loss 0.4004 lr 1.47e-04 elapsed 716.1s
+step 24/66 epoch 1 loss 0.4676 lr 1.43e-04 elapsed 741.8s
+step 25/66 epoch 1 loss 0.2915 lr 1.40e-04 elapsed 772.9s
+step 26/66 epoch 1 loss 0.2737 lr 1.37e-04 elapsed 793.4s
+step 27/66 epoch 1 loss 0.3412 lr 1.33e-04 elapsed 823.0s
+step 28/66 epoch 1 loss 0.3498 lr 1.30e-04 elapsed 850.7s
+step 29/66 epoch 1 loss 0.3096 lr 1.27e-04 elapsed 879.1s
+step 30/66 epoch 1 loss 0.3661 lr 1.23e-04 elapsed 904.1s
+step 31/66 epoch 1 loss 0.3129 lr 1.20e-04 elapsed 944.5s
+step 32/66 epoch 1 loss 0.1647 lr 1.17e-04 elapsed 969.3s
+step 33/66 epoch 1 loss 0.2052 lr 1.13e-04 elapsed 984.8s
+epoch 1 done | eval loss 0.2632
+step 34/66 epoch 2 loss 0.1334 lr 1.10e-04 elapsed 1055.3s
+step 35/66 epoch 2 loss 0.0684 lr 1.07e-04 elapsed 1081.8s
+step 36/66 epoch 2 loss 0.0888 lr 1.03e-04 elapsed 1111.2s
+step 37/66 epoch 2 loss 0.1461 lr 1.00e-04 elapsed 1139.6s
+step 38/66 epoch 2 loss 0.1144 lr 9.67e-05 elapsed 1175.7s
+step 39/66 epoch 2 loss 0.1536 lr 9.33e-05 elapsed 1198.5s
+step 40/66 epoch 2 loss 0.0870 lr 9.00e-05 elapsed 1223.6s
+step 41/66 epoch 2 loss 0.2298 lr 8.67e-05 elapsed 1255.2s
+step 42/66 epoch 2 loss 0.2619 lr 8.33e-05 elapsed 1271.6s
+step 43/66 epoch 2 loss 0.1700 lr 8.00e-05 elapsed 1293.8s
+step 44/66 epoch 2 loss 0.0997 lr 7.67e-05 elapsed 1318.9s
+step 45/66 epoch 2 loss 0.1200 lr 7.33e-05 elapsed 1343.7s
+step 46/66 epoch 2 loss 0.1068 lr 7.00e-05 elapsed 1373.0s
+step 47/66 epoch 2 loss 0.0539 lr 6.67e-05 elapsed 1396.6s
+step 48/66 epoch 2 loss 0.2177 lr 6.33e-05 elapsed 1415.4s
+step 49/66 epoch 2 loss 0.0866 lr 6.00e-05 elapsed 1441.7s
+step 50/66 epoch 2 loss 0.0641 lr 5.67e-05 elapsed 1465.9s
+step 51/66 epoch 2 loss 0.0453 lr 5.33e-05 elapsed 1493.0s
+step 52/66 epoch 2 loss 0.1059 lr 5.00e-05 elapsed 1518.9s
+step 53/66 epoch 2 loss 0.0583 lr 4.67e-05 elapsed 1540.3s
+step 54/66 epoch 2 loss 0.0440 lr 4.33e-05 elapsed 1566.0s
+step 55/66 epoch 2 loss 0.1000 lr 4.00e-05 elapsed 1595.4s
+step 56/66 epoch 2 loss 0.0414 lr 3.67e-05 elapsed 1617.7s
+step 57/66 epoch 2 loss 0.0866 lr 3.33e-05 elapsed 1648.0s
+step 58/66 epoch 2 loss 0.0665 lr 3.00e-05 elapsed 1666.1s
+step 59/66 epoch 2 loss 0.0537 lr 2.67e-05 elapsed 1692.7s
+step 60/66 epoch 2 loss 0.1058 lr 2.33e-05 elapsed 1721.4s
+step 61/66 epoch 2 loss 0.0432 lr 2.00e-05 elapsed 1749.8s
+step 62/66 epoch 2 loss 0.0694 lr 1.67e-05 elapsed 1777.7s
+step 63/66 epoch 2 loss 0.0584 lr 1.33e-05 elapsed 1807.9s
+step 64/66 epoch 2 loss 0.0610 lr 1.00e-05 elapsed 1833.5s
+step 65/66 epoch 2 loss 0.0217 lr 6.67e-06 elapsed 1860.3s
+step 66/66 epoch 2 loss 0.0211 lr 3.33e-06 elapsed 1869.9s
+epoch 2 done | eval loss 0.1613
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "method": "LoRA supervised fine-tuning (PEFT), loss on assistant tokens only",
+  "hyperparameters": {
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0002,
+    "epochs": 2,
+    "grad_accum_steps": 8,
+    "warmup_steps": 6,
+    "max_grad_norm": 1.0,
+    "max_seq_len": 1024,
+    "seed": 42
+  },
+  "trainable_params": 8798208,
+  "total_params": 502830976,
+  "train_examples": 260,
+  "eval_examples": 50,
+  "optimizer_steps": 66,
+  "train_tokens_mean": 413,
+  "train_tokens_max": 697,
+  "eval_loss_before": 1.7159996577829149,
+  "duration_minutes": 31.8,
+  "hardware": {
+    "device": "cpu",
+    "processor": "Intel64 Family 6 Model 151 Stepping 2, GenuineIntel",
+    "torch_threads": 12
+  },
+  "versions": {
+    "torch": "2.15.0+cpu",
+    "python": "3.13.2"
+  },
+  "eval_loss_by_epoch": {
+    "0": 1.716,
+    "1": 0.2632,
+    "2": 0.1613
+  }
+}

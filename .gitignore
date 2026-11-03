@@ -1,0 +1,15 @@
+node_modules/
+__pycache__/
+.venv/
+venv/
+*.pyc
+.DS_Store
+npm-debug.log*
+.env
+evaluation/reports/*.md
+evaluation/reports/*.csv
+rag/.embeddings_cache.json
+rag/.lancedb/
+
+.pytest_cache/
+.claude/
